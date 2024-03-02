@@ -8,6 +8,7 @@ authors = ["Alex Simon <aleandre6579.simon@gmail.com>"]
 python = "^3.11"
 fastapi = "^0.110.0"
 uvicorn = "^0.27.1"
+pytest = "^8.0.2"
 
 
 [build-system]
