@@ -5,7 +5,7 @@ Find all your university's services and information on Campus Compass!
 <br/>
 
 ## Setting up your environment
-- Rename .env.defaults to .env
+1. Rename .env.defaults to .env
 
 <br/>
 
@@ -15,9 +15,18 @@ Find all your university's services and information on Campus Compass!
 poetry shell
 poetry install
 ```
-2. Run ```pre-commit install``` so that the pre-commit hook runs automatically on commit (run ```pre-commit run --all-files``` to manually run the pre-commit hook on the entire repo)
-3. Start the backend server
-```uvicorn app.main:app --port 3000```
+2. Enable pre-commit to run automatically on commit:
+```
+pre-commit install
+```
+3. Run pre-commit manually with this command:
+```
+pre-commit run --all-files
+```
+4. Start the backend server
+```
+uvicorn app.main:app --port 3000
+```
 
 <br/>
 
@@ -43,5 +52,5 @@ As of now the system looks like this:
 ```
 docker compose up
 ```
-2. For the frontend, visit: localhost
-3. For the backend, visit: localhost/api
+2. For the frontend, visit: ```localhost```
+3. For the backend, visit: ```localhost/api```
