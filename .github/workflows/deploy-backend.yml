@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-  pull_request:
 
 env:
   PYTHON_VERSION: "3.12"
@@ -103,6 +102,7 @@ jobs:
       - name: Install Poetry
         run: |
           curl -sL https://install.python-poetry.org | POETRY_VERSION=${{ env.POETRY_VERSION }} python - -y
+
       - name: Configure Poetry
         run: |
           echo "$HOME/.local/bin" >> $GITHUB_PATH
