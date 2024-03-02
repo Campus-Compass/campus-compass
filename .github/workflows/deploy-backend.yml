@@ -82,7 +82,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: coverage-report
-          path: coverage.xml
+          path: ./backend/coverage.xml
           retention-days: 14
 
   build-and-upload:
@@ -119,7 +119,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: dist
-          path: dist
+          path: ./backend/dist
           if-no-files-found: error
 
   sonarqube:
