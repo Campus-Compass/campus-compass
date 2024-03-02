@@ -44,4 +44,4 @@ As of now the system looks like this:
 docker compose up
 ```
 2. For the frontend, visit: localhost
-3. For the backend, visit: localhost/api 
+3. For the backend, visit: localhost/api
