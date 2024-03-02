@@ -49,7 +49,7 @@ jobs:
           flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
           # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
           flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-          
+
   test-and-coverage:
     runs-on: ubuntu-latest
 
@@ -89,16 +89,16 @@ jobs:
     needs: test-and-coverage
     if: ${{ github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout latest main commit
         uses: actions/checkout@v4
-        
+
       - name: Set up Python ${{ env.PYTHON_VERSION }}
         uses: actions/setup-python@v5
         with:
           python-version: ${{ env.PYTHON_VERSION }}
-          
+
       - name: Install Poetry
         run: |
           curl -sL https://install.python-poetry.org | POETRY_VERSION=${{ env.POETRY_VERSION }} python - -y
