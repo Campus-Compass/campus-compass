@@ -92,6 +92,9 @@ jobs:
     needs: test-and-coverage
     if: ${{ github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
 
     steps:
       - name: Checkout latest main commit
@@ -116,7 +119,7 @@ jobs:
           
       - name: Publish the images
         run: | 
-          docker push ghcr.io/${{ env.BASE_IMG_NAME }}/backend:${{ steps.image-tag.outputs.image_tag }} \
+          docker push ghcr.io/${{ env.BASE_IMG_NAME }}/backend:${{ steps.image-tag.outputs.image_tag }} && \
           docker push ghcr.io/${{ env.BASE_IMG_NAME }}/backend:latest
 
   sonarqube:
