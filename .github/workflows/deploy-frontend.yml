@@ -92,7 +92,7 @@ jobs:
           
     - name: Publish the images
       run: | 
-        docker push ghcr.io/${{ env.BASE_IMG_NAME }}/frontend:${{ steps.image-tag.outputs.image_tag }} \
+        docker push ghcr.io/${{ env.BASE_IMG_NAME }}/frontend:${{ steps.image-tag.outputs.image_tag }} && \
         docker push ghcr.io/${{ env.BASE_IMG_NAME }}/frontend:latest
 
   sonarqube:
