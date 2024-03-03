@@ -63,11 +63,14 @@ jobs:
           path: ./frontend/app/coverage/lcov.info
           retention-days: 14
 
-  build:
+  build-and-upload:
     needs: test-and-coverage
     if: ${{ github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
-        
+    permissions:
+      contents: read
+      packages: write
+    
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
