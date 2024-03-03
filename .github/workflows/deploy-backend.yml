@@ -110,7 +110,6 @@ jobs:
 
       - name: Build the Docker image
         run: |
-          cd backend && \
           docker build . --file Dockerfile \
           --tag ghcr.io/${{ env.BASE_IMG_NAME }}/backend:${{ steps.image-tag.outputs.image_tag }} \
           --tag ghcr.io/${{ env.BASE_IMG_NAME }}/backend:latest
