@@ -1,7 +1,5 @@
 # BUILD STAGE
-FROM node:alpine AS BUILD
-
-ENV NODE_ENV production
+FROM node:20.8.0-alpine AS BUILD
 
 WORKDIR /app
 
