@@ -33,7 +33,7 @@ jobs:
         run: npm i
 
       - name: Lint with ESlint
-        run: npx eslint src/** --ext .tsx,.ts
+        run: npx eslint src/**.tsx src/**.ts
           
       - name: Format with prettier
         run: npx prettier src/**.tsx src/**.ts --config ./.prettierrc
