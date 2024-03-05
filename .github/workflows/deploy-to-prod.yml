@@ -1,0 +1,43 @@
+name: Deploy to Caprover Prod Cluster
+
+on:
+  push:
+    tags:
+    - '*'
+
+env:
+  PYTHON_VERSION: "3.12"
+  POETRY_VERSION: "1.7.1"
+  NODE_VERSION: "20.8.0"
+  REGISTRY: ghcr.io
+  BASE_IMG_NAME: ${{ github.repository }}
+
+jobs:
+  codebase-CI:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run backend CI
+        uses: campus-compass/campus-compass/.github/workflows/backend-updated.yml@main
+
+      - name: Run frontend CI
+        uses: campus-compass/campus-compass/.github/workflows/frontend-updated.yml@main
+
+  deploy:
+    needs: codebase-CI
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy Backend Image to CapRrover
+        uses: caprover/deploy-from-github@v1.1.2
+        with:
+          server: "${{ secrets.CAPROVER_SERVER }}"
+          app: "${{ secrets.APP_NAME }}"
+          token: "${{ secrets.APP_TOKEN }}"
+          image: "ghcr.io/campus-compass/campus-compass/backend:latest"
+
+      - name: Deploy Frontend Image to CapRrover
+        uses: caprover/deploy-from-github@v1.1.2
+        with:
+          server: "${{ secrets.CAPROVER_SERVER }}"
+          app: "${{ secrets.APP_NAME }}"
+          token: "${{ secrets.APP_TOKEN }}"
+          image: "ghcr.io/campus-compass/campus-compass/frontend:latest"
