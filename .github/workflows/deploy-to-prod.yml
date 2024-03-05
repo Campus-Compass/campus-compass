@@ -13,17 +13,14 @@ env:
   BASE_IMG_NAME: ${{ github.repository }}
 
 jobs:
-  codebase-CI:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Run backend CI
-        uses: campus-compass/campus-compass/.github/workflows/backend-updated.yml@main
+  backend-CI:
+    uses: campus-compass/campus-compass/.github/workflows/backend-updated.yml@main
 
-      - name: Run frontend CI
-        uses: campus-compass/campus-compass/.github/workflows/frontend-updated.yml@main
+  frontend-CI:
+    uses: campus-compass/campus-compass/.github/workflows/frontend-updated.yml@main
 
   deploy:
-    needs: codebase-CI
+    needs: [frontend-CI, backend-CI]
     runs-on: ubuntu-latest
     steps:
       - name: Deploy Backend Image to CapRrover
