@@ -2,7 +2,7 @@ name: Deploy to Caprover Prod Cluster
 
 on:
   release:
-    types: [created]
+    types: [released]
 
 env:
   BACKEND_IMG_NAME: ${{ github.repository }}/backend
