@@ -6,6 +6,11 @@ on:
   pull_request:
     branches: [ main ]
   workflow_call:
+    secrets:
+      SONAR_TOKEN:
+        required: true
+      GITHUB_TOKEN: 
+        required: true
 
 env:
   PYTHON_VERSION: "3.12"
@@ -91,7 +96,6 @@ jobs:
 
   build-and-upload:
     needs: test-and-coverage
-    if: ${{ github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
     permissions:
       contents: read
