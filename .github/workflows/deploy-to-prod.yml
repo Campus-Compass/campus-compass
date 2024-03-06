@@ -8,6 +8,8 @@ env:
   REGISTRY: ghcr.io
   BACKEND_IMG_NAME: ${{ github.repository }}/backend:latest
   FRONTEND_IMG_NAME: ${{ github.repository }}/frontend:latest
+  FRONTEND_CAPROVER_APP: campus-compass-frontend
+  BACKEND_CAPROVER_APP: campus-compass-backend
 
 jobs:
   backend-CI:
@@ -34,7 +36,7 @@ jobs:
         uses: caprover/deploy-from-github@v1.1.2
         with:
           server: "${{ secrets.CAPROVER_SERVER }}"
-          app: "${{ secrets.BACKEND_APP_NAME }}"
+          app: "${{ env.BACKEND_CAPROVER_APP }}"
           token: "${{ secrets.BACKEND_APP_TOKEN }}"
           image: "${{ env.REGISTRY }}/${{ env.BACKEND_IMG_NAME }}"
 
@@ -42,6 +44,6 @@ jobs:
         uses: caprover/deploy-from-github@v1.1.2
         with:
           server: "${{ secrets.CAPROVER_SERVER }}"
-          app: "${{ secrets.FRONTEND_APP_NAME }}"
+          app: "${{ env.FRONTEND_CAPROVER_APP }}"
           token: "${{ secrets.FRONTEND_APP_TOKEN }}"
           image: "${{ env.REGISTRY }}/${{ env.FRONTEND_IMG_NAME }}"
