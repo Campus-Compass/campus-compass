@@ -5,7 +5,8 @@ on:
     types: [published]
 
 env:
-  BASE_IMG_NAME: ${{ github.repository }}
+  BACKEND_IMG_NAME: ${{ github.repository }}/backend
+  FRONTEND_IMG_NAME: ${{ github.repository }}/frontend
 
 
 jobs:
@@ -35,7 +36,7 @@ jobs:
           server: "${{ secrets.CAPROVER_SERVER }}"
           app: "${{ secrets.BACKEND_APP_NAME }}"
           token: "${{ secrets.BACKEND_APP_TOKEN }}"
-          image: "ghcr.io/campus-compass/campus-compass/backend:latest"
+          image: "${{ env.BACKEND_IMG_NAME }}"
 
       - name: Deploy Frontend Image to CapRrover
         uses: caprover/deploy-from-github@v1.1.2
@@ -43,4 +44,4 @@ jobs:
           server: "${{ secrets.CAPROVER_SERVER }}"
           app: "${{ secrets.FRONTEND_APP_NAME }}"
           token: "${{ secrets.FRONTEND_APP_TOKEN }}"
-          image: "ghcr.io/campus-compass/campus-compass/frontend:latest"
+          image: "${{ env.FRONTEND_IMG_NAME }}"
