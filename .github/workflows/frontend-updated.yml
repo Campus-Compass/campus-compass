@@ -9,8 +9,6 @@ on:
     secrets:
       SONAR_TOKEN:
         required: true
-      GITHUB_TOKEN: 
-        required: true
 
 env:
   NODE_VERSION: "20.8.0"
