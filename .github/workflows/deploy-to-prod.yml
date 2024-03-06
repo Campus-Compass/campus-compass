@@ -19,7 +19,6 @@ jobs:
       packages: write
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
   frontend-CI:
     uses: campus-compass/campus-compass/.github/workflows/frontend-updated.yml@main
@@ -28,7 +27,6 @@ jobs:
       packages: write
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
   deploy:
     needs: [frontend-CI, backend-CI]
