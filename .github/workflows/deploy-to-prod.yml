@@ -5,11 +5,8 @@ on:
     types: [published]
 
 env:
-  PYTHON_VERSION: "3.12"
-  POETRY_VERSION: "1.7.1"
-  NODE_VERSION: "20.8.0"
-  REGISTRY: ghcr.io
   BASE_IMG_NAME: ${{ github.repository }}
+
 
 jobs:
   backend-CI:
@@ -36,14 +33,14 @@ jobs:
         uses: caprover/deploy-from-github@v1.1.2
         with:
           server: "${{ secrets.CAPROVER_SERVER }}"
-          app: "${{ secrets.APP_NAME }}"
-          token: "${{ secrets.APP_TOKEN }}"
+          app: "${{ secrets.BACKEND_APP_NAME }}"
+          token: "${{ secrets.BACKEND_APP_TOKEN }}"
           image: "ghcr.io/campus-compass/campus-compass/backend:latest"
 
       - name: Deploy Frontend Image to CapRrover
         uses: caprover/deploy-from-github@v1.1.2
         with:
           server: "${{ secrets.CAPROVER_SERVER }}"
-          app: "${{ secrets.APP_NAME }}"
-          token: "${{ secrets.APP_TOKEN }}"
+          app: "${{ secrets.FRONTEND_APP_NAME }}"
+          token: "${{ secrets.FRONTEND_APP_TOKEN }}"
           image: "ghcr.io/campus-compass/campus-compass/frontend:latest"
