@@ -2,7 +2,7 @@ name: Deploy to Caprover Prod Cluster
 
 on:
   release:
-    type: [created]
+    type: [published]
 
 env:
   PYTHON_VERSION: "3.12"
@@ -17,13 +17,19 @@ jobs:
     permissions:
       contents: read
       packages: write
+    secrets:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
   frontend-CI:
     uses: campus-compass/campus-compass/.github/workflows/frontend-updated.yml@main
     permissions:
       contents: read
       packages: write
-      
+    secrets:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
   deploy:
     needs: [frontend-CI, backend-CI]
     runs-on: ubuntu-latest
