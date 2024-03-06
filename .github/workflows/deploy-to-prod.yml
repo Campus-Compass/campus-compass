@@ -2,7 +2,7 @@ name: Deploy to Caprover Prod Cluster
 
 on:
   release:
-    type: [published]
+    types: [published]
 
 env:
   PYTHON_VERSION: "3.12"
