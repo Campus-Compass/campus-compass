@@ -1,9 +1,8 @@
 name: Deploy to Caprover Prod Cluster
 
 on:
-  push:
-    tags:
-    - '*'
+  release:
+    type: [created]
 
 env:
   PYTHON_VERSION: "3.12"
