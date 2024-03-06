@@ -15,10 +15,16 @@ env:
 jobs:
   backend-CI:
     uses: campus-compass/campus-compass/.github/workflows/backend-updated.yml@main
-
+    permissions:
+      contents: read
+      packages: write
+      
   frontend-CI:
     uses: campus-compass/campus-compass/.github/workflows/frontend-updated.yml@main
-
+    permissions:
+      contents: read
+      packages: write
+      
   deploy:
     needs: [frontend-CI, backend-CI]
     runs-on: ubuntu-latest
