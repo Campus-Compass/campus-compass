@@ -1,0 +1,49 @@
+name: Deploy to Test
+
+on:
+  push:
+    branches: [ main ]
+
+env:
+  REGISTRY: ghcr.io
+  BACKEND_IMG_NAME: ${{ github.repository }}/backend:latest
+  FRONTEND_IMG_NAME: ${{ github.repository }}/frontend:latest
+  FRONTEND_CAPROVER_APP: test-campus-compass-frontend
+  BACKEND_CAPROVER_APP: test-campus-compass-backend
+
+jobs:
+  backend-CI:
+    uses: campus-compass/campus-compass/.github/workflows/backend-updated.yml@main
+    permissions:
+      contents: read
+      packages: write
+    secrets:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      
+  frontend-CI:
+    uses: campus-compass/campus-compass/.github/workflows/frontend-updated.yml@main
+    permissions:
+      contents: read
+      packages: write
+    secrets:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        
+  deploy:
+    needs: [frontend-CI, backend-CI]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy Backend Image to CapRrover
+        uses: caprover/deploy-from-github@v1.1.2
+        with:
+          server: "${{ secrets.CAPROVER_SERVER }}"
+          app: "${{ env.BACKEND_CAPROVER_APP }}"
+          token: "${{ secrets.BACKEND_APP_TOKEN }}"
+          image: "${{ env.REGISTRY }}/${{ env.BACKEND_IMG_NAME }}"
+
+      - name: Deploy Frontend Image to CapRrover
+        uses: caprover/deploy-from-github@v1.1.2
+        with:
+          server: "${{ secrets.CAPROVER_SERVER }}"
+          app: "${{ env.FRONTEND_CAPROVER_APP }}"
+          token: "${{ secrets.FRONTEND_APP_TOKEN }}"
+          image: "${{ env.REGISTRY }}/${{ env.FRONTEND_IMG_NAME }}"
