@@ -2,11 +2,11 @@ name: Backend CI
 
 on:
   push:
-    branches-ignore:
-      - main
+    branches:
+      - main/**
   pull_request:
-    branches-ignore:
-      - main
+    branches:
+      - main/**
   workflow_call:
     secrets:
       SONAR_TOKEN:
