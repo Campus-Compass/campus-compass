@@ -1,4 +1,4 @@
-name: Deploy to Caprover Prod Cluster
+name: Deploy to Production
 
 on:
   release:
