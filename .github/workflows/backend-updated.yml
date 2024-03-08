@@ -27,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout latest main commit
+      - name: Checkout commit
         uses: actions/checkout@v4
 
       - name: Set up Python ${{ env.PYTHON_VERSION }}
@@ -63,7 +63,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout latest main commit
+      - name: Checkout commit
         uses: actions/checkout@v4
 
       - name: Set up Python ${{ env.PYTHON_VERSION }}
@@ -102,7 +102,7 @@ jobs:
       packages: write
 
     steps:
-      - name: Checkout latest main commit
+      - name: Checkout commit
         uses: actions/checkout@v4
 
       - name: Log in to the container registry
@@ -132,7 +132,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout latest main commit
+      - name: Checkout commit
         uses: actions/checkout@v4
         with:
           # Disabling shallow clone is recommended for improving relevancy of reporting
