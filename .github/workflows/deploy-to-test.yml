@@ -8,8 +8,8 @@ env:
   REGISTRY: ghcr.io
   BACKEND_IMG_NAME: ${{ github.repository }}/backend:latest
   FRONTEND_IMG_NAME: ${{ github.repository }}/frontend:latest
-  FRONTEND_CAPROVER_APP: test-campus-compass-frontend
-  BACKEND_CAPROVER_APP: test-campus-compass-backend
+  FRONTEND_CAPROVER_APP: test-frontend
+  BACKEND_CAPROVER_APP: test-backend
 
 jobs:
   backend-CI:
