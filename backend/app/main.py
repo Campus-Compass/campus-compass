@@ -1,6 +1,6 @@
 from typing import Dict
 
-from app.models import db
+from app import db
 from fastapi import FastAPI
 
 app = FastAPI()

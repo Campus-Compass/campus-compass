@@ -1,7 +1,7 @@
 import bcrypt
 
 
-def hash(password: str) -> bytes:
+def hash_password(password: str) -> bytes:
     """
     Hashes a password.
 
@@ -11,7 +11,7 @@ def hash(password: str) -> bytes:
     return bcrypt.hashpw(password.encode("utf-8"), salt=bcrypt.gensalt())
 
 
-def verify(password: str, hashed_password: bytes) -> bool:
+def verify_password(password: str, hashed_password: bytes) -> bool:
     """
     Verify a password against a hashed password.
 
