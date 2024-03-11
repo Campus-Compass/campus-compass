@@ -23,10 +23,27 @@ pre-commit install
 ```
 pre-commit run --all-files
 ```
-4. Start the backend server
+4. Set up the database
+```
+alembic upgrade head
+```
+5. Start the backend server
 ```
 uvicorn app.main:app --port 3000
 ```
+
+## Updating Database
+1. Commit changes to the database
+(run after making any changes to a Model)
+```
+```
+2. Apply any new changes to the database
+(should run every time the backend has been touched)
+```
+alembic upgrade head
+```
+
+Credits: https://stackoverflow.com/questions/68932099/how-to-get-alembic-to-recognise-sqlmodel-database-model
 
 <br/>
 
