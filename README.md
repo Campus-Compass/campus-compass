@@ -48,7 +48,7 @@ Credits: https://stackoverflow.com/questions/68932099/how-to-get-alembic-to-reco
 <br/>
 
 ## Run the Frontend
-1. Go to frontend directory and run the following commands to setup the environment:
+1. In the app directory within the frontend directory run the following commands to setup the environment:
 ```
 npm install
 ```
