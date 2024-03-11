@@ -1,7 +1,7 @@
 from logging.config import fileConfig
 
 from alembic import context
-from app.models import *
+from app.models import admin, event, post, service
 from app.utils import database_url
 from sqlalchemy import engine_from_config, pool
 from sqlmodel import SQLModel
@@ -13,9 +13,8 @@ config = context.config
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
 
-fileConfig(config.config_file_name)
-# if config.config_file_name is not None:
-# fileConfig(config.config_file_name)
+if config.config_file_name is not None:
+    fileConfig(config.config_file_name)
 
 # add your model's MetaData object here
 # for 'autogenerate' support
@@ -23,7 +22,6 @@ fileConfig(config.config_file_name)
 # target_metadata = mymodel.Base.metadata
 
 target_metadata = SQLModel.metadata
-# target_metadata = None
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:

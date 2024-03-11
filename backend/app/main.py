@@ -5,7 +5,7 @@ from fastapi import FastAPI
 
 app = FastAPI()
 
-db.create_db_and_tables()
+db.init_db()
 
 
 @app.get("/")
