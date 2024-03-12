@@ -19,7 +19,7 @@ jobs:
       packages: write
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      
+
   frontend-CI:
     uses: campus-compass/campus-compass/.github/workflows/frontend-updated.yml@main
     permissions:
@@ -27,7 +27,7 @@ jobs:
       packages: write
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        
+
   deploy:
     needs: [frontend-CI, backend-CI]
     runs-on: ubuntu-latest
