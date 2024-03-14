@@ -1,7 +1,7 @@
 import React from 'react'
 // import Survey from '../components/Survey' #todo
 import Navbar from '../components/Navbar'
-import './Home.css'
+import '../css/Home.css'
 
 function Home() {
   return (
