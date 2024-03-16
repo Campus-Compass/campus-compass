@@ -32,6 +32,8 @@ alembic upgrade head
 uvicorn app.main:app --port 3000
 ```
 
+<br/>
+
 ## Updating Database
 1. Commit changes to the database
 (run after making any changes to a Model)
@@ -48,7 +50,7 @@ Credits: https://stackoverflow.com/questions/68932099/how-to-get-alembic-to-reco
 <br/>
 
 ## Run the Frontend
-1. In the app directory within the frontend directory run the following commands to setup the environment:
+1. Move to /app inside the frontend directory and run the following commands to setup the environment:
 ```
 npm install
 ```
