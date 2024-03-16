@@ -6,9 +6,9 @@ import '../css/Home.css'
 function Home() {
   return (
     <div className='home'>
-      <Navbar /> {/* Include the Navbar component */}
+      <Navbar />
       <h1>Home</h1>
-      {/*<Survey />*/}#todo
+      {/*<Survey />*/}
     </div>
   )
 }

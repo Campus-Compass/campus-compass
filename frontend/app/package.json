@@ -23,8 +23,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint  --fix src/**.tsx src/**.ts",
-    "format": "prettier src/**.tsx src/**.ts --write --config ./.prettierrc",
+    "lint": "eslint --fix src",
+    "format": "prettier src --write --config ./.prettierrc",
     "prepare": "cd ../.. && husky frontend/app/.husky"
   },
   "eslintConfig": {
