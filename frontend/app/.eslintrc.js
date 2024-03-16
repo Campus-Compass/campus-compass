@@ -1,6 +1,6 @@
 module.exports = {
   root: true,
-  parser: "@typescript-eslint/parser",
+  parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 2020,
     requireConfigFile: false,
@@ -9,8 +9,8 @@ module.exports = {
       tsx: true
     },
     babelOptions: {
-      presets: ["@babel/preset-react"]
-    },
+      presets: ['@babel/preset-react']
+    }
   },
   settings: {
     react: {
