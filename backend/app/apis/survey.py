@@ -1,3 +1,5 @@
+from typing import Dict, List
+
 from app.db import get_session
 from app.services.survey import SurveyService
 from app.utils.auth import get_auth_handler
@@ -16,7 +18,7 @@ auth_handler = get_auth_handler()
 async def get_survey(
     session: Session = Depends(get_session),
     # user_id: str = Depends(auth_handler.auth_wrapper),
-) -> dict:
+) -> List[Dict]:
     return SurveyService(session).get_survey()
 
 
@@ -28,5 +30,5 @@ async def get_survey(
 async def submit_survey(
     session: Session = Depends(get_session),
     user_id: str = Depends(auth_handler.auth_wrapper),
-) -> dict:
+) -> Dict:
     return {"message": "not implemented yet"}
