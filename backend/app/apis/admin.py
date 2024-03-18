@@ -1,3 +1,5 @@
+from typing import Dict
+
 from app.apis.base_api import base_user_api
 from app.db import get_session
 from app.models.user import UserRole
@@ -17,5 +19,5 @@ auth_handler = get_auth_handler()
 )
 async def login(
     user_info: BaseAuthDetails, session: Session = Depends(get_session)
-) -> dict:
+) -> Dict:
     return base_user_api.user_login(user_info, UserRole.ADMIN, session)
