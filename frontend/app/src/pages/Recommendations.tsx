@@ -21,7 +21,7 @@ function Recommendations() {
   }
 
   useEffect(() => {
-    display_recommendations
+    display_recommendations()
   })
 
   return (
