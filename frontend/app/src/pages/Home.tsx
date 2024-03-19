@@ -15,10 +15,10 @@ function Home() {
       <React.Fragment>
         <Box m={10} color={theme.palette.primary.main}>
           <Typography variant='h2' sx={{ textAlign: 'center', fontWeight: 500 }}>
-            Recommendations
+            Services Recommendation Survey
           </Typography>
           <Typography variant='body2' sx={{ textAlign: 'center' }}>
-            Here are a list of services we recommend for you based on your answers.
+            Please answer the following so we may direct you to the proper services.
           </Typography>
         </Box>
       </React.Fragment>
