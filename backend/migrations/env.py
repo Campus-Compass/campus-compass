@@ -1,7 +1,7 @@
 from logging.config import fileConfig
 
 from alembic import context
-from app.models import admin, event, post, service
+from app.models import event, post, service, survey, user
 from app.utils import database_url
 from sqlalchemy import engine_from_config, pool
 from sqlmodel import SQLModel
