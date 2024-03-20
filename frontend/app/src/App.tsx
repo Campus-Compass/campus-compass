@@ -1,5 +1,4 @@
 import React from 'react'
-import axios from 'axios'
 import './App.css'
 import Routes from './routes'
 import { ThemeProvider, createTheme, responsiveFontSizes } from '@mui/material/styles'
@@ -35,8 +34,6 @@ let theme = createTheme({
 })
 
 theme = responsiveFontSizes(theme)
-
-axios.defaults.baseURL = '/api/'
 
 function App() {
   return (
