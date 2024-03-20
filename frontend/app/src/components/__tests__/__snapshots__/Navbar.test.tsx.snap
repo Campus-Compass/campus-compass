@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders Navbar correctly 1`] = `
+<div>
+  <nav>
+    <ul>
+      <li>
+        <a
+          href="/"
+        >
+          Resource Recommender
+        </a>
+      </li>
+      <li>
+        <a
+          href="/services"
+        >
+          All Services
+        </a>
+      </li>
+      <li>
+        <a
+          href="/serviceMap"
+        >
+          Service Map
+        </a>
+      </li>
+      <li>
+        <a
+          href="/calendar"
+        >
+          Event Calendar
+        </a>
+      </li>
+      <li>
+        <a
+          href="/feedback"
+        >
+          Give Feedback
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>
+`
