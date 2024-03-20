@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box, Typography, RadioGroup, FormControlLabel, Radio } from '@mui/material'
-import { SurveyProps } from './Survey'
+import { SurveyProps } from '../models'
 
 function Question({ question, index }: { question: SurveyProps; index: number }) {
   const [selectedValue, setSelectedValue] = React.useState('')
