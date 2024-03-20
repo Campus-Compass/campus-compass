@@ -16,5 +16,6 @@
   "printWidth": 140,
   "tabWidth": 2,
   "rangeStart": 0,
-  "parser": "typescript"
+  "parser": "typescript",
+  "endOfLine": "auto"
 }
