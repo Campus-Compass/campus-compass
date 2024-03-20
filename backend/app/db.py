@@ -22,7 +22,7 @@ def init_db():
             )
             session.add(admin)
             session.commit()
-    
+
 
 def get_session():
     with Session(engine) as session:

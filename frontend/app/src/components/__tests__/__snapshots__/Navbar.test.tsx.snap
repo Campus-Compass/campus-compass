@@ -42,4 +42,4 @@ exports[`renders Navbar correctly 1`] = `
     </ul>
   </nav>
 </div>
-`;
+`

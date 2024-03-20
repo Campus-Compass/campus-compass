@@ -14,7 +14,7 @@ exports[`renders Survey correctly 1`] = `
         <h5
           class="MuiTypography-root MuiTypography-h5 css-ag7rrr-MuiTypography-root"
         >
-          Question 
+          Question
           1
         </h5>
         <p
@@ -133,7 +133,7 @@ exports[`renders Survey correctly 1`] = `
         <h5
           class="MuiTypography-root MuiTypography-h5 css-ag7rrr-MuiTypography-root"
         >
-          Question 
+          Question
           2
         </h5>
         <p
@@ -252,7 +252,7 @@ exports[`renders Survey correctly 1`] = `
         <h5
           class="MuiTypography-root MuiTypography-h5 css-ag7rrr-MuiTypography-root"
         >
-          Question 
+          Question
           3
         </h5>
         <p
@@ -393,4 +393,4 @@ exports[`renders Survey correctly 1`] = `
     </form>
   </div>
 </div>
-`;
+`
