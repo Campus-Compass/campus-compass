@@ -8,7 +8,7 @@ class Event(SQLModel, table=True):
     """Event entity for events at the University."""
 
     id: Optional[int] = Field(default=None, primary_key=True)
-    user_id: Optional[int] = Field(default=None, foreign_key="user.id")
+    user_id: Optional[str] = Field(default=None, foreign_key="user.user_id")
     title: str
     content: str
     start_date: datetime

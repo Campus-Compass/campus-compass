@@ -1,26 +1,18 @@
 from typing import List, Optional
 
+from app.models.user import User
 from sqlmodel import Field, Relationship, SQLModel
-
-
-class Survey(SQLModel, table=True):
-    """Survey entity."""
-
-    id: Optional[int] = Field(default=None, primary_key=True)
-    service_id: int = Field(foreign_key="service.id")
-
-    questions: List["Question"] = Relationship(back_populates="survey")
 
 
 class Question(SQLModel, table=True):
     """Question entity."""
 
     id: Optional[int] = Field(default=None, primary_key=True)
-    survey_id: Optional[int] = Field(default=None, foreign_key="survey.id")
+    user_id: Optional[str] = Field(default=None, foreign_key="user.user_id")
     question_text: str
 
     answers: List["Answer"] = Relationship(back_populates="question")
-    survey: Survey = Relationship(back_populates="questions")
+    user: User = Relationship(back_populates="questions")
 
 
 class Answer(SQLModel, table=True):
