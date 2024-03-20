@@ -1,4 +1,6 @@
 # Campus Compass
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Campus-Compass_campus-compass&metric=coverage)](https://sonarcloud.io/summary/new_code?id=Campus-Compass_campus-compass)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=Campus-Compass_campus-compass&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=Campus-Compass_campus-compass)
 
 Find all your university's services and information on Campus Compass!
 

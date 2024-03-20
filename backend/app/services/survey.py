@@ -29,22 +29,12 @@ class SurveyService(BaseService):
         Expected response format:
         [
             {
-                "question_id": 1,
+                ...
                 "answer_id": 1,
+                ...
             }
         ]
         """
-        survey_response = [
-            {
-                "answer_id": 2,
-            },
-            {
-                "answer_id": 4,
-            },
-            {
-                "answer_id": 5,
-            },
-        ]
         # Get ALL the answer ids from the survey response
         a_ids = []
         for response in survey_response:

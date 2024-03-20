@@ -14,7 +14,7 @@ const Routes = () => {
       element: <Home />
     },
     {
-      path: '/rec',
+      path: '/recommendations',
       element: <Recommendations />
     }
   ]
