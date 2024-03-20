@@ -34,6 +34,25 @@ function Survey() {
           question_id: '1'
         }
       ]
+    },
+    {
+      question_text: 'How are you?',
+      id: '1',
+      survey_id: '1',
+      answers: [
+        {
+          recommend_service: false,
+          answer_text: "I'm fine thank you!",
+          id: '1',
+          question_id: '1'
+        },
+        {
+          recommend_service: true,
+          answer_text: "I'm not feeling well",
+          id: '2',
+          question_id: '1'
+        }
+      ]
     }
   ]
 
@@ -67,10 +86,9 @@ function Survey() {
   }
 
   return (
-    <Box borderBottom={'solid 2px'} p={4} sx={{ borderImage: 'linear-gradient(to right, rgba(0,0,0,0) 5%, black, rgba(0,0,0,0) 95%) 1' }}>
+    <Box>
       <form onSubmit={handleSubmit}>
-        {survey?.map((question, index) => <Question key={`rec-${index}`} {...question} />)}
-        {survey[0].question_text}
+        {survey?.map((question, index) => <Question key={`rec-${index}`} question={question} index={index + 1} />)}
       </form>
     </Box>
   )

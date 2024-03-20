@@ -1,8 +1,8 @@
 import React from 'react'
 import { Box, Typography, RadioGroup, FormControlLabel, Radio } from '@mui/material'
-// import { grey } from '@mui/material/colors'
+import { SurveyProps } from './Survey'
 
-function Question(question: { question_text: string; answers: { answer_text: string; recommend_service: boolean }[] }) {
+function Question({ question, index }: { question: SurveyProps; index: number }) {
   const [selectedValue, setSelectedValue] = React.useState('')
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -11,7 +11,7 @@ function Question(question: { question_text: string; answers: { answer_text: str
 
   return (
     <Box borderBottom={'solid 2px'} p={4} sx={{ borderImage: 'linear-gradient(to right, rgba(0,0,0,0) 5%, black, rgba(0,0,0,0) 95%) 1' }}>
-      <Typography variant='h5'>Question 1</Typography>
+      <Typography variant='h5'>Question {index}</Typography>
       <Typography id='question' variant='body1'>
         {question.question_text}
       </Typography>
