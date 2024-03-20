@@ -8,6 +8,8 @@ import Container from '@mui/material/Container'
 import Recommendation from '../components/Recommendation'
 import { send_request } from '../utils'
 import { RecommendationProps } from '../models'
+import logo from '../assets/logo.png'
+import { Link } from 'react-router-dom'
 
 function Recommendations() {
   const theme = useTheme()
@@ -30,6 +32,9 @@ function Recommendations() {
 
   return (
     <React.Fragment>
+      <Link to={'/'}>
+        <img src={logo} width={50} style={{ position: 'absolute', top: '20px', left: '20px' }}></img>
+      </Link>
       <Box m={10} color={theme.palette.primary.main}>
         <Typography variant='h2' sx={{ textAlign: 'center', fontWeight: 500 }}>
           Recommendations
