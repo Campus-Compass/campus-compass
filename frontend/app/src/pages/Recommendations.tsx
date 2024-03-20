@@ -16,7 +16,7 @@ function Recommendations() {
   const [recommendations, setRecommendations] = useState<RecommendationProps[]>([])
 
   function get_recommendations() {
-    const recommendations_ = get_request('http://goasdogle.com')
+    const recommendations_ = get_request('/recommendations')
     return recommendations_
   }
 

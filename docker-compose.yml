@@ -18,7 +18,7 @@ services:
       - ./scripts/init.sh:/docker-entrypoint-initdb.b/init.sh
       - mariadata:/var/lib/mysql
     ports:
-      - "3306:3306"
+      - "${DB_PORT}:${DB_PORT}"
     networks:
       - system-facing
 
@@ -31,6 +31,9 @@ services:
   backend:
     image: ${BACKEND_IMAGE}
     build: ./backend
+    command: >
+      bash -c "alembic upgrade head 
+      && uvicorn app.main:app --host 0.0.0.0 --port 8080"
     depends_on:
       mariadb:
         condition: service_healthy
@@ -39,8 +42,12 @@ services:
       - DB_USER=${DB_USER}
       - DB_PASSWORD=${DB_PASSWORD}
       - DB_HOST=${DB_HOST}
-      - DB_PORT:=${DB_PORT}
-      - JWT_SECRET=${JWT_SECRET}
+      - DB_PORT=${DB_PORT}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD}
+      - BACKEND_SECRET_KEY=${BACKEND_SECRET_KEY}
+      - ALGORITHM=${ALGORITHM}
+      - TOKEN_EXPIRY_TIME_MINUTES=${TOKEN_EXPIRY_TIME_MINUTES}
+      - DOMAIN_NAME=${DOMAIN_NAME}
     networks:
       - user-facing
       - system-facing
