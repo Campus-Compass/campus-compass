@@ -6,8 +6,8 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  BACKEND_IMG_NAME: ${{ github.repository }}/backend:latest
-  FRONTEND_IMG_NAME: ${{ github.repository }}/frontend:latest
+  BACKEND_IMG_NAME: ${{ github.repository }}/backend
+  FRONTEND_IMG_NAME: ${{ github.repository }}/frontend
   FRONTEND_CAPROVER_APP: frontend
   BACKEND_CAPROVER_APP: backend
 
@@ -38,7 +38,7 @@ jobs:
           server: "${{ secrets.CAPROVER_SERVER }}"
           app: "${{ env.BACKEND_CAPROVER_APP }}"
           token: "${{ secrets.BACKEND_APP_TOKEN }}"
-          image: "${{ env.REGISTRY }}/${{ env.BACKEND_IMG_NAME }}"
+          image: "${{ env.REGISTRY }}/${{ env.BACKEND_IMG_NAME }}:${{ needs.backend-CI.outputs.image_tag }}"
 
       - name: Deploy Frontend Image to CapRrover
         uses: caprover/deploy-from-github@v1.1.2
@@ -46,4 +46,4 @@ jobs:
           server: "${{ secrets.CAPROVER_SERVER }}"
           app: "${{ env.FRONTEND_CAPROVER_APP }}"
           token: "${{ secrets.FRONTEND_APP_TOKEN }}"
-          image: "${{ env.REGISTRY }}/${{ env.FRONTEND_IMG_NAME }}"
+          image: "${{ env.REGISTRY }}/${{ env.FRONTEND_IMG_NAME }}:${{ needs.frontend-CI.outputs.image_tag }}"
