@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders MyComponent correctly 1`] = `
+<div>
+  <div>
+    Loading...
+  </div>
+</div>
+`
+
+exports[`renders Survey correctly 1`] = `
+<div>
+  <div>
+    Loading...
+  </div>
+</div>
+`
