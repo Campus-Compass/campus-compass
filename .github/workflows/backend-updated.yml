@@ -13,7 +13,7 @@ on:
         required: true
     outputs:
       image_tag:
-        value: '${{ jobs.build-and-upload.steps.outputs.image_tag }}'
+        value: '${{ jobs.build-and-upload.outputs.image_tag }}'
 
 env:
   PYTHON_VERSION: "3.12"
@@ -105,7 +105,7 @@ jobs:
       contents: read
       packages: write
     outputs:
-      image_name: ''
+      image_tag: '${{ steps.image-tag.outputs.image_tag }}'
 
     steps:
       - name: Checkout commit
