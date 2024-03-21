@@ -28,11 +28,12 @@ async def get_survey(
     status_code=status.HTTP_200_OK,
 )
 async def submit_survey(
-    # request: Request,
+    request: Request,
     session: Session = Depends(get_session),
     # user_id: str = Depends(auth_handler.auth_wrapper),
 ) -> List:
-    return SurveyService(session).read_survey_response([])
+    body = await request.json()
+    return SurveyService(session).read_survey_response(body)
 
 
 @router.post(

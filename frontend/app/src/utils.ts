@@ -1,16 +1,15 @@
 import axios from 'axios'
 
 export async function send_request(url: string, method: string, data: any) {
-  let res = undefined
-  res = await axios({ method: method, url: url, data: data })
+  return await axios({ method: method, url: url, data: data })
     .then(function (response) {
-      res = response
       console.log('Request response: ', response)
+      return response.data
     })
     .catch(function (error) {
       console.log('REQUEST ERROR: ', error)
+      return undefined
     })
-  return res
 }
 
 export async function post_request(url: string, data: any) {
@@ -18,5 +17,6 @@ export async function post_request(url: string, data: any) {
 }
 
 export async function get_request(url: string) {
-  return send_request(url, 'get', {})
+  const res = await send_request(url, 'get', {})
+  return res
 }

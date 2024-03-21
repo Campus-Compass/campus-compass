@@ -28,7 +28,7 @@ function Recommendations() {
 
   useEffect(() => {
     display_recommendations()
-  })
+  }, [])
 
   return (
     <React.Fragment>

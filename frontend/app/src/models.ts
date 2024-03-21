@@ -15,3 +15,8 @@ export interface SurveyProps {
     question_id: string
   }[]
 }
+
+export interface SurveyResponse {
+  question_id: string
+  answer_id: string
+}
