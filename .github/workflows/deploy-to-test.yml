@@ -46,4 +46,4 @@ jobs:
           server: "${{ secrets.CAPROVER_SERVER }}"
           app: "${{ env.FRONTEND_CAPROVER_APP }}"
           token: "${{ secrets.TEST_FRONTEND_APP_TOKEN }}"
-          image: "${{ env.REGISTRY }}/${{ env.FRONTEND_IMG_NAME }}:${{ needs.backend-CI.outputs.image_tag }}"
+          image: "${{ env.REGISTRY }}/${{ env.FRONTEND_IMG_NAME }}:${{ needs.frontend-CI.outputs.image_tag }}"
