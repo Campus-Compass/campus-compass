@@ -74,7 +74,7 @@ exports[`renders Survey correctly 1`] = `
             <span
               class="MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label css-ahj2mt-MuiTypography-root"
             >
-              Yes
+              Hell ye
             </span>
           </label>
           <label
