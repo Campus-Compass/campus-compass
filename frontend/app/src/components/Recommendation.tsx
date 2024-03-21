@@ -20,12 +20,12 @@ const Recommendation: React.FC<RecommendationProps> = (rec: RecommendationProps)
       <br />
       <Typography variant='h5'>We recommend this service:</Typography>
       <Box p={3} sx={{ backgroundColor: grey[400], borderRadius: '20px', textAlign: 'center' }}>
-        <Typography variant='h4'>{rec.service}</Typography>
+        <Typography variant='h4'>{rec.service.service_name}</Typography>
         <Typography variant='body1'>
-          <EmailIcon sx={{ position: 'relative', top: '5px' }} /> it@mahidol.ac.th
+          <EmailIcon sx={{ position: 'relative', top: '5px' }} /> {rec.service.email}
         </Typography>
         <Typography variant='body1'>
-          <PhoneInTalkIcon sx={{ position: 'relative', top: '5px' }} /> +66 0283756381
+          <PhoneInTalkIcon sx={{ position: 'relative', top: '5px' }} /> {rec.service.phone_number}
         </Typography>
       </Box>
     </Box>

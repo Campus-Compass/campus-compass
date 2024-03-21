@@ -1,7 +1,15 @@
 export interface RecommendationProps {
   question: string
   answer: string
-  service: string
+  service: {
+    address: string,
+    email: string,
+    id: number,
+    phone_number: string,
+    service_name: string,
+    uesr_id: string,
+    website_url: string
+  }
 }
 
 export interface SurveyProps {

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Box, Button } from '@mui/material'
 import Question from './Question'
-import { SurveyProps, SurveyResponse } from '../models'
+import { RecommendationProps, SurveyProps, SurveyResponse } from '../models'
 import { get_request, post_request } from '../utils'
 import SendIcon from '@mui/icons-material/Send'
 
@@ -82,12 +82,11 @@ function Survey() {
     else console.log('Survey returned undefined.')
   }
 
-  function submitSurvey(event: any) {
+  async function submitSurvey(event: any) {
     event.preventDefault()
     console.log(surveyResponse)
-    navigate('/recommendations')
-    const survey_ = post_request('/survey', JSON.stringify(survey))
-    return survey_
+    const recommendations: RecommendationProps = await post_request('/survey', JSON.stringify(surveyResponse))
+    navigate('/recommendations', { state: { recommendations } })
   }
 
   function updateSurveyResponse(question_id: string, answer_id: string) {

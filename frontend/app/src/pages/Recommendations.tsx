@@ -6,30 +6,30 @@ import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
 import Recommendation from '../components/Recommendation'
-import { get_request } from '../utils'
 import { RecommendationProps } from '../models'
 import logo from '../assets/logo.png'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 function Recommendations() {
   const theme = useTheme()
-  const [recommendations, setRecommendations] = useState<RecommendationProps[]>([])
+  const { state } = useLocation()
+  const [recommendations, setRecommendations] = useState<RecommendationProps[]>(state.recommendations)
 
-  function get_recommendations() {
-    const recommendations_ = get_request('/recommendations')
-    return recommendations_
-  }
+  // function get_recommendations() {
+  //   console.log(state.recommendations)
+  //   return state.recommendations
+  // }
 
-  async function display_recommendations() {
-    const recommendations_ = await get_recommendations()
-    if (recommendations_ !== undefined) setRecommendations(recommendations_)
-    else console.log('Recommendations returned undefined.')
-  }
+  // function display_recommendations() {
+  //   const recommendations_ = get_recommendations()
+  //   if (recommendations_ !== undefined) setRecommendations(recommendations_)
+  //   else console.log('Recommendations returned undefined.')
+  // }
 
   useEffect(() => {
-    display_recommendations()
+    //   display_recommendations()
   }, [])
-
+  setRecommendations
   return (
     <React.Fragment>
       <Link to={'/'}>
