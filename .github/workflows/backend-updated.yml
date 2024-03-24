@@ -11,6 +11,9 @@ on:
     secrets:
       SONAR_TOKEN:
         required: true
+    outputs:
+      image_tag:
+        value: '${{ jobs.build-and-upload.outputs.image_tag }}'
 
 env:
   PYTHON_VERSION: "3.12"
@@ -54,10 +57,11 @@ jobs:
 
       - name: Lint with flake8
         run: |
+          cd ..
           # stop the build if there are Python syntax errors or undefined names
-          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+          flake8 backend --show-source --statistics
           # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+          flake8 backend --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 
   test-and-coverage:
     runs-on: ubuntu-latest
@@ -100,6 +104,8 @@ jobs:
     permissions:
       contents: read
       packages: write
+    outputs:
+      image_tag: '${{ steps.image-tag.outputs.image_tag }}'
 
     steps:
       - name: Checkout commit

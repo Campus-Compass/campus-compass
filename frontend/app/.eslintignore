@@ -1,7 +1,7 @@
 # all file extensions except .tsx and .ts
 *.css
 *.svg
-assets 
+assets
 
 # dependencies
 /**/node_modules/*
