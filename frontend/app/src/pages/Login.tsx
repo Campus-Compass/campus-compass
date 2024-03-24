@@ -1,48 +1,71 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '../auth/authProvider'
 import axios from 'axios'
 import Box from '@mui/material/Box'
 import logo from '../assets/logo.png'
-import { TextField, Typography } from '@mui/material'
+import { IconButton, OutlinedInput, TextField, Typography } from '@mui/material'
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 import { useTheme } from '@mui/material'
 import Button from '@mui/material/Button'
+import InputAdornment from '@mui/material/InputAdornment'
+import { Visibility, VisibilityOff } from '@mui/icons-material'
 
 const Login = () => {
-  const theme = useTheme()
-
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const [usernameError, setUsernameError] = useState('')
-  const [passwordError, setPasswordError] = useState('')
-
   const navigate = useNavigate()
   const auth = useAuth()
   const { state } = useLocation()
+  const theme = useTheme()
+
+  const universities = ['MUIC', 'Oxford University', 'Hogwarts', 'LFIB']
+
+  // Input values
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [userRole, setUserRole] = useState('')
+  const [university, setUniversity] = useState('')
+  const [usernameError, setUsernameError] = useState(false)
+  const [passwordError, setPasswordError] = useState(false)
+  const [userRoleError, setUserRoleError] = useState(false)
+  const [universityError, setUniversityError] = useState(false)
+
+  const [showPassword, setShowPassword] = useState(false)
+
+  const handleClickShowPassword: any = () => setShowPassword((show) => !show)
 
   const validateLogin = () => {
-    setUsernameError('')
-    setPasswordError('')
+    setUsernameError(false)
+    setPasswordError(false)
+    setUserRoleError(false)
+    setUniversityError(false)
+
+    let hasError = false
 
     if ('' === username) {
-      setUsernameError('Please enter your username')
-      return
+      setUsernameError(true)
+      hasError = true
     }
 
     if ('' === password) {
-      setPasswordError('Please enter a password')
-      return
+      setPasswordError(true)
+      hasError = true
     }
 
-    if (password.length < 7) {
-      setPasswordError('The password must be 8 characters or longer')
-      return
+    if ('' === userRole) {
+      setUserRoleError(true)
+      hasError = true
     }
+
+    if ('' === university) {
+      setUniversityError(true)
+      hasError = true
+    }
+
+    if (hasError) return
 
     logIn()
   }
@@ -50,7 +73,7 @@ const Login = () => {
   const logIn = async () => {
     let res: any = null
     try {
-      res = await axios.post('/api/login', JSON.stringify({ username, password }))
+      res = await axios.post('/api/' + userRole + '/login', JSON.stringify({ username, password }))
     } catch (e) {
       window.alert('Wrong username or password')
       return
@@ -64,8 +87,6 @@ const Login = () => {
       window.alert('Wrong username or password')
     }
   }
-
-  const [university, setUniversity] = useState('')
 
   const handleChange = (event: SelectChangeEvent) => {
     setUniversity(event.target.value as string)
@@ -87,11 +108,16 @@ const Login = () => {
               Select your university
             </Typography>
             <Box sx={{ minWidth: 120 }}>
-              <FormControl color='primary' sx={{ backgroundColor: 'white' }} fullWidth>
-                <Select labelId='universityLabel' id='university' value={university} onChange={handleChange}>
-                  <MenuItem value={10}>Ten</MenuItem>
-                  <MenuItem value={20}>Twenty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem>
+              <FormControl error={universityError} sx={{ backgroundColor: 'white' }} fullWidth>
+                <Select displayEmpty labelId='universityLabel' id='university' value={university} onChange={handleChange}>
+                  <MenuItem value=''>
+                    <b>Your University</b>
+                  </MenuItem>
+                  {universities.map((universityName) => (
+                    <MenuItem key={'menuItem-' + universityName} value={universityName}>
+                      {universityName}
+                    </MenuItem>
+                  ))}
                 </Select>
               </FormControl>
             </Box>
@@ -115,55 +141,89 @@ const Login = () => {
             Who are you?
           </Typography>
           <Box display={'flex'} justifyContent={'center'} gap={'50px'} width={'100%'}>
-            <Box
-              display={'flex'}
-              justifyContent={'center'}
-              alignItems={'center'}
-              color={theme.palette.secondary.main}
-              flexGrow={1}
-              borderRadius={3}
-              p={5}
-              sx={{ backgroundColor: theme.palette.primary.main }}
+            <Button
+              onClick={() => setUserRole('admin')}
+              sx={{
+                border: userRoleError ? 'solid 1px red' : 'solid 0px red',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                color: userRole === 'admin' ? theme.palette.secondary.main : theme.palette.primary.main,
+                flexGrow: 1,
+                borderRadius: 3,
+                padding: 5,
+                backgroundColor: userRole === 'admin' ? theme.palette.primary.main : 'white',
+                ':hover': { backgroundColor: userRole === 'admin' ? theme.palette.primary.main : theme.palette.secondary.dark }
+              }}
             >
               <Typography variant='h4'>Admin</Typography>
-            </Box>
-            <Box
-              display={'flex'}
-              justifyContent={'center'}
-              alignItems={'center'}
-              color={theme.palette.secondary.main}
-              flexGrow={1}
-              borderRadius={3}
-              p={5}
-              sx={{ backgroundColor: theme.palette.primary.main }}
+            </Button>
+            <Button
+              onClick={() => setUserRole('service')}
+              sx={{
+                border: userRoleError ? 'solid 1px red' : 'solid 0px red',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                color: userRole === 'service' ? theme.palette.secondary.main : theme.palette.primary.main,
+                flexGrow: 1,
+                borderRadius: 3,
+                padding: 5,
+                backgroundColor: userRole === 'service' ? theme.palette.primary.main : 'white',
+                ':hover': { backgroundColor: userRole === 'service' ? theme.palette.primary.main : theme.palette.secondary.dark }
+              }}
             >
               <Typography variant='h4'>Service</Typography>
-            </Box>
-            <Box
-              display={'flex'}
-              justifyContent={'center'}
-              alignItems={'center'}
-              color={theme.palette.secondary.main}
-              flexGrow={1}
-              borderRadius={3}
-              p={5}
-              sx={{ backgroundColor: theme.palette.primary.main }}
+            </Button>
+            <Button
+              onClick={() => setUserRole('student')}
+              sx={{
+                border: userRoleError ? 'solid 1px red' : 'solid 0px red',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                color: userRole === 'student' ? theme.palette.secondary.main : theme.palette.primary.main,
+                flexGrow: 1,
+                borderRadius: 3,
+                padding: 5,
+                backgroundColor: userRole === 'student' ? theme.palette.primary.main : 'white',
+                ':hover': { backgroundColor: userRole === 'student' ? theme.palette.primary.main : theme.palette.secondary.dark }
+              }}
             >
               <Typography variant='h4'>Student</Typography>
-            </Box>
+            </Button>
           </Box>
         </Box>
         <Box display={'flex'} flexDirection={'column'} justifyContent={'center'} width={'50%'}>
           <Typography pb={2} variant='h5'>
             Admin ID
           </Typography>
-          <TextField sx={{ borderRadius: '3', p: '2', backgroundColor: 'white' }} value={username} id='user-id'></TextField>
+          <TextField
+            error={usernameError}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setUsername(event.target.value)}
+            sx={{ borderRadius: '3', p: '2', backgroundColor: 'white' }}
+            value={username}
+            id='user-id'
+          ></TextField>
           <br />
           <br />
           <Typography pb={2} variant='h5'>
             Password
           </Typography>
-          <TextField type='password' sx={{ borderRadius: '3', p: '2', backgroundColor: 'white' }} value={password} id='user-id'></TextField>
+          <FormControl error={passwordError} sx={{ borderRadius: '3', p: '2', backgroundColor: 'white' }} variant='outlined'>
+            <OutlinedInput
+              id='password'
+              type={showPassword ? 'text' : 'password'}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => setPassword(event.target.value)}
+              endAdornment={
+                <InputAdornment sx={{ paddingRight: '5px' }} position='end'>
+                  <IconButton onClick={handleClickShowPassword} edge='end'>
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
+          </FormControl>
           <br />
           <br />
           <Button
