@@ -17,11 +17,6 @@ const routesForPublic = [
     path: '/',
     name: 'Home',
     element: <Home />
-  },
-  {
-    path: '/recommendations',
-    name: 'Recommendations',
-    element: <Recommendations />
   }
 ]
 
@@ -29,7 +24,13 @@ const routesForAuthenticatedOnly = [
   {
     path: '/',
     element: <ProtectedRoute />,
-    children: []
+    children: [
+      {
+        path: '/recommendations',
+        name: 'Recommendations',
+        element: <Recommendations />
+      }
+    ]
   }
 ]
 
@@ -67,13 +68,14 @@ export function getOtherNavbarRoutes(currentPath: string): any {
 }
 
 export function getOtherNavbarRoutes_(routes: any, currentPath: string): any {
-  const navbarRoutes = []
+  let navbarRoutes: any[] = []
   for (const routeName of navbarRouteNames) {
     if (routeName === getCurrentRouteName_(routes, currentPath)) continue
     else {
       for (const route of routes) {
+        console.log(route)
         if ('children' in route) {
-          navbarRoutes.concat(getOtherNavbarRoutes_(route['children'], currentPath))
+          navbarRoutes = navbarRoutes.concat(getOtherNavbarRoutes_(route['children'], currentPath))
         } else if ('name' in route && route.name === routeName) {
           navbarRoutes.push(route)
         }
