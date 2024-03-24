@@ -5,11 +5,13 @@ import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
 import { useTheme } from '@mui/material'
 import '../css/Home.css'
+import Navbar from '../components/Navbar'
 
 function Home() {
   const theme = useTheme()
   return (
     <React.Fragment>
+      <Navbar />
       <Box m={10} color={theme.palette.primary.main}>
         <Typography variant='h2' sx={{ textAlign: 'center', fontWeight: 500 }}>
           Services Recommendation Survey

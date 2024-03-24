@@ -9,11 +9,12 @@ import Recommendation from '../components/Recommendation'
 import { RecommendationProps } from '../models'
 import logo from '../assets/logo.png'
 import { Link, useLocation } from 'react-router-dom'
+import Navbar from '../components/Navbar'
 
 function Recommendations() {
   const theme = useTheme()
   const { state } = useLocation()
-  const [recommendations, setRecommendations] = useState<RecommendationProps[]>(state.recommendations)
+  const [recommendations, setRecommendations] = useState<RecommendationProps[]>()
 
   // function get_recommendations() {
   //   console.log(state.recommendations)
@@ -32,9 +33,7 @@ function Recommendations() {
   setRecommendations
   return (
     <React.Fragment>
-      <Link to={'/'}>
-        <img src={logo} width={50} style={{ position: 'absolute', top: '20px', left: '20px' }}></img>
-      </Link>
+      <Navbar />
       <Box m={10} color={theme.palette.primary.main}>
         <Typography variant='h2' sx={{ textAlign: 'center', fontWeight: 500 }}>
           Recommendations
