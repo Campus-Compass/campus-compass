@@ -24,11 +24,6 @@ const routesForPublic: any = [
     path: '/recommendations',
     name: 'Recommendations',
     element: <Recommendations />
-  },
-  {
-    path: '/createsurvey/',
-    name: 'Create Survey',
-    element: <CreateSurvey />
   }
 ]
 
@@ -100,7 +95,8 @@ const Routes = () => {
       if ('name' in route && recursivePath + route.path === currentPath) {
         return route.name
       } else if ('children' in route) {
-        return getCurrentRouteName_(route['children'], currentPath, recursivePath + route.path)
+        const routeName = getCurrentRouteName_(route['children'], currentPath, recursivePath + route.path)
+        if (routeName !== '') return routeName
       }
     }
     return ''
