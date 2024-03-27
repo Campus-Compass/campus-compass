@@ -101,8 +101,8 @@ const Login = () => {
         </Typography>
       </Box>
 
-      <Box px={20} py={10} display={'flex'} flexDirection={'column'} alignItems={'center'} justifyContent={'center'} gap={'80px'}>
-        <Box display={'flex'} justifyContent={'space-between'} gap={'100px'} width={'100%'}>
+      <Box px={30} py={6} display={'flex'} flexDirection={'column'} alignItems={'center'} justifyContent={'center'} gap={'80px'}>
+        {/* <Box display={'flex'} justifyContent={'space-between'} gap={'100px'} width={'100%'}>
           <Box flexGrow={1} borderRadius={'20px'}>
             <Typography pb={2} variant='h5'>
               Select your university
@@ -135,7 +135,7 @@ const Login = () => {
               <span style={{ textDecoration: 'underline' }}>Contact us</span> directly to register your university.
             </Typography>
           </Box>
-        </Box>
+        </Box> */}
         <Box display={'flex'} flexDirection={'column'} justifyContent={'center'} width={'100%'}>
           <Typography pb={2} variant='h5'>
             Who are you?
@@ -196,7 +196,7 @@ const Login = () => {
         </Box>
         <Box display={'flex'} flexDirection={'column'} justifyContent={'center'} width={'50%'}>
           <Typography pb={2} variant='h5'>
-            Admin ID
+            {userRole === 'admin' ? 'Admin' : userRole === 'service' ? 'Service' : userRole === 'student' ? 'Student' : ''} ID
           </Typography>
           <TextField
             error={usernameError}
