@@ -1,10 +1,22 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Box, Typography, Container, TextField, RadioGroup, FormControlLabel, Radio, Button } from '@mui/material'
 import { useTheme } from '@mui/material'
 
+interface Question {
+  text: string
+  choice: string
+}
+
 function CreateSurveys() {
   const theme = useTheme()
-  const [questions, setQuestions] = useState([{ text: '', choice: '' }])
+  const [questions, setQuestions] = useState<Question[]>([])
+  useEffect(() => {
+    // Replace this with your actual API call
+    fetch('/api/questions')
+      .then((response) => response.json())
+      .then((data) => setQuestions(data))
+  }, [])
+
   const submitForm = () => {
     if (window.confirm('Finalize changes?')) {
       console.log(questions) // replace with call POST to backend
