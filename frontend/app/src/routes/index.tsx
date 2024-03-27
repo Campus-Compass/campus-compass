@@ -20,7 +20,7 @@ const routesForPublic: any = [
     element: <Home />
   },
   {
-    path: '/recommendations/',
+    path: '/recommendations',
     name: 'Recommendations',
     element: <Recommendations />
   }
@@ -77,6 +77,10 @@ const Routes = () => {
 
   function getCurrentRouteName_(routes: any, currentPath: string, recursivePath: string): string {
     for (const route of routes) {
+      console.log(route.path)
+      console.log(currentPath)
+      console.log(recursivePath)
+      console.log(recursivePath + route.path === currentPath)
       if ('name' in route && recursivePath + route.path === currentPath) {
         return route.name
       } else if ('children' in route) {
