@@ -74,6 +74,7 @@ const Login = () => {
     const res: any = await post_request('/' + userRole + '/login', { user_id: username, password })
     if (res !== undefined) {
       auth?.setToken(res.access_token)
+      auth?.setUserRole(userRole)
       navigate(state?.path || '/')
     } else {
       window.alert('Wrong username or password')

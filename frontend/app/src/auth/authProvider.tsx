@@ -5,6 +5,8 @@ import { createContext, useContext, useEffect, useMemo, useState } from 'react'
 export interface IAuthContext {
   token: string | null
   setToken: (token: string | null) => void
+  userRole: string
+  setUserRole: (userRole: string) => void
 }
 const AuthContext = createContext<IAuthContext | null>(null)
 
@@ -15,6 +17,8 @@ const AuthProvider = ({ children }: { children: any }) => {
     setToken_(newToken)
   }
 
+  const [userRole, setUserRole] = useState('')
+
   useEffect(() => {
     if (token) {
       axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
@@ -23,14 +27,15 @@ const AuthProvider = ({ children }: { children: any }) => {
       delete axios.defaults.headers.common['Authorization']
       localStorage.removeItem('token')
     }
-    console.log(token)
   }, [token])
 
   // Memoized value of the authentication context
   const contextValue = useMemo(
     () => ({
       token,
-      setToken
+      setToken,
+      userRole,
+      setUserRole
     }),
     [token]
   )

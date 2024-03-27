@@ -5,26 +5,21 @@ import '../css/Navbar.css' // Import the CSS file
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
-import IconButton from '@mui/material/IconButton'
-import Typography from '@mui/material/Typography'
-import Menu from '@mui/material/Menu'
-import Avatar from '@mui/material/Avatar'
 import Button from '@mui/material/Button'
-import Tooltip from '@mui/material/Tooltip'
-import MenuItem from '@mui/material/MenuItem'
 import logo from '../assets/logo.png'
-import { getCurrentRouteName, getOtherNavbarRoutes } from '../routes'
+import { useRoutesContext, IRoutesContext } from '../routes'
 import { useTheme } from '@mui/material/styles'
+import { useAuth } from '../auth/authProvider'
 
 const settings = ['Profile', 'Logout']
 
 const Navbar: React.FC = () => {
+  const { getCurrentRouteName, getOtherNavbarRoutes } = useRoutesContext() as IRoutesContext
+  const auth = useAuth()
   const pathname: string = getCurrentRouteName(window.location.pathname)
-  const pages = getOtherNavbarRoutes(window.location.pathname)
-
+  const pages = getOtherNavbarRoutes(window.location.pathname, auth?.userRole ? auth.userRole : '')
   const theme = useTheme()
   const navigate = useNavigate()
-
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null)
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -57,7 +52,7 @@ const Navbar: React.FC = () => {
       </AppBar>
 
       <AppBar position='static' sx={{ flexShrink: '1', borderRadius: '20px' }}>
-        <Toolbar disableGutters sx={{ height: '100%', paddingRight: '20px' }}>
+        <Toolbar disableGutters sx={{ height: '100%' }}>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, height: '100%', width: '100%' }}>
             {pages.map((page: any) => (
               <Button
@@ -72,7 +67,7 @@ const Navbar: React.FC = () => {
             ))}
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
+          {/* <Box sx={{ flexGrow: 0 }}>
             <Tooltip title='Open settings'>
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt='Remy Sharp' src='/static/images/avatar/2.jpg' />
@@ -100,7 +95,7 @@ const Navbar: React.FC = () => {
                 </MenuItem>
               ))}
             </Menu>
-          </Box>
+          </Box> */}
         </Toolbar>
       </AppBar>
     </Box>
