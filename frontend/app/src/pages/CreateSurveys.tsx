@@ -5,10 +5,10 @@ import { useTheme } from '@mui/material'
 function CreateSurveys() {
   const theme = useTheme()
   const [questions, setQuestions] = useState([{ text: '', choice: '' }])
-
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault()
-    console.log(questions)
+  const submitForm = () => {
+    if (window.confirm('Finalize changes?')) {
+      console.log(questions) // replace with call POST to backend
+    }
   }
 
   const addQuestion = () => {
@@ -26,7 +26,7 @@ function CreateSurveys() {
         </Typography>
       </Box>
       <Container disableGutters sx={{ bgcolor: 'white', height: '100%', borderRadius: '50px 50px 0 0' }}>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={submitForm}>
           {questions.map((question, index) => (
             <div key={index}>
               <TextField
