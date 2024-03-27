@@ -7,13 +7,19 @@ import { RecommendationProps } from '../models'
 
 const Recommendation: React.FC<RecommendationProps> = (rec: RecommendationProps) => {
   return (
-    <Box borderBottom={'solid 2px'} p={4} sx={{ borderImage: 'linear-gradient(to right, rgba(0,0,0,0) 5%, black, rgba(0,0,0,0) 95%) 1' }}>
+    <Box
+      borderBottom={'solid 2px'}
+      p={4}
+      display={'flex'}
+      flexDirection={'column'}
+      sx={{ borderImage: 'linear-gradient(to right, rgba(0,0,0,0) 5%, black, rgba(0,0,0,0) 95%) 1' }}
+    >
       <Typography variant='h5'>Question 1</Typography>
       <Typography id='question' variant='body1'>
         {rec.question}
       </Typography>
       <br />
-      <Typography variant='body1'>
+      <Typography variant='body1' sx={{ flexGrow: 1 }}>
         <span style={{ textDecoration: 'underline', marginRight: '5px' }}>You answered:</span>
         <span id='question-answer'>{rec.answer}</span>
       </Typography>
