@@ -196,7 +196,7 @@ const Login = () => {
         </Box>
         <Box display={'flex'} flexDirection={'column'} justifyContent={'center'} width={'50%'}>
           <Typography pb={2} variant='h5'>
-            {userRole === 'admin' ? 'Admin' : userRole === 'service' ? 'Service' : userRole === 'student' ? 'Student' : ''} ID
+            {userRole === 'admin' ? 'Admin' : userRole === 'service' ? 'Service' : userRole === 'student' ? 'Student' : 'User'} ID
           </Typography>
           <TextField
             error={usernameError}

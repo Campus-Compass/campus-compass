@@ -12,7 +12,7 @@ function Home() {
   return (
     <React.Fragment>
       <Navbar />
-      <Box m={10} color={theme.palette.primary.main}>
+      <Box m={8} color={theme.palette.primary.main}>
         <Typography variant='h2' sx={{ textAlign: 'center', fontWeight: 500 }}>
           Services Recommendation Survey
         </Typography>
