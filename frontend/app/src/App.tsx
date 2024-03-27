@@ -3,7 +3,6 @@ import './App.css'
 import Routes from './routes'
 import { ThemeProvider, createTheme, responsiveFontSizes } from '@mui/material/styles'
 import AuthProvider from './auth/authProvider'
-import Navbar from './components/Navbar'
 
 let theme = createTheme({
   palette: {

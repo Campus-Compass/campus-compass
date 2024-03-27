@@ -6,7 +6,9 @@ export const ProtectedRoute = () => {
   const auth = useAuth()
   const location = useLocation()
 
+  console.log('ASDASDASD: ' + !auth?.token)
   if (!auth?.token) {
+    console.log('ASDASDASD: ' + !auth?.token)
     return <Navigate to='/login' state={{ path: location.pathname }} />
   }
 

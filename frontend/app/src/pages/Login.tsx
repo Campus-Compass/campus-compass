@@ -1,19 +1,19 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '../auth/authProvider'
-import axios from 'axios'
 import Box from '@mui/material/Box'
 import logo from '../assets/logo.png'
 import { IconButton, OutlinedInput, TextField, Typography } from '@mui/material'
-import InputLabel from '@mui/material/InputLabel'
-import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
-import Select, { SelectChangeEvent } from '@mui/material/Select'
 import { useTheme } from '@mui/material'
 import Button from '@mui/material/Button'
 import InputAdornment from '@mui/material/InputAdornment'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
+import { post_request } from '../utils'
+import BuildIcon from '@mui/icons-material/Build'
+import SchoolIcon from '@mui/icons-material/School'
+import StoreIcon from '@mui/icons-material/Store'
 
 const Login = () => {
   const navigate = useNavigate()
@@ -21,17 +21,17 @@ const Login = () => {
   const { state } = useLocation()
   const theme = useTheme()
 
-  const universities = ['MUIC', 'Oxford University', 'Hogwarts', 'LFIB']
+  // const universities = ['MUIC', 'Oxford University', 'Hogwarts', 'LFIB']
 
   // Input values
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [userRole, setUserRole] = useState('')
-  const [university, setUniversity] = useState('')
+  // const [university, setUniversity] = useState('')
   const [usernameError, setUsernameError] = useState(false)
   const [passwordError, setPasswordError] = useState(false)
   const [userRoleError, setUserRoleError] = useState(false)
-  const [universityError, setUniversityError] = useState(false)
+  // const [universityError, setUniversityError] = useState(false)
 
   const [showPassword, setShowPassword] = useState(false)
 
@@ -41,7 +41,7 @@ const Login = () => {
     setUsernameError(false)
     setPasswordError(false)
     setUserRoleError(false)
-    setUniversityError(false)
+    // setUniversityError(false)
 
     let hasError = false
 
@@ -60,10 +60,10 @@ const Login = () => {
       hasError = true
     }
 
-    if ('' === university) {
-      setUniversityError(true)
-      hasError = true
-    }
+    // if ('' === university) {
+    //   setUniversityError(true)
+    //   hasError = true
+    // }
 
     if (hasError) return
 
@@ -71,37 +71,29 @@ const Login = () => {
   }
 
   const logIn = async () => {
-    let res: any = null
-    try {
-      res = await axios.post('/api/' + userRole + '/login', JSON.stringify({ username, password }))
-    } catch (e) {
-      window.alert('Wrong username or password')
-      return
-    }
-
-    const resData = res.data
-    if (res.status === 200) {
-      auth?.setToken(resData)
+    const res: any = await post_request('/' + userRole + '/login', { user_id: username, password })
+    if (res !== undefined) {
+      auth?.setToken(res.access_token)
       navigate(state?.path || '/')
     } else {
       window.alert('Wrong username or password')
     }
   }
 
-  const handleChange = (event: SelectChangeEvent) => {
-    setUniversity(event.target.value as string)
-  }
+  // const handleChange = (event: SelectChangeEvent) => {
+  //   setUniversity(event.target.value as string)
+  // }
 
   return (
     <Box>
       <Box display={'flex'} alignItems={'center'} justifyContent={'center'} gap={'100px'} paddingTop={'20px'}>
-        <img width={'130px'} src={logo} />
+        <img onClick={() => navigate('/')} style={{ cursor: 'pointer' }} width={'130px'} src={logo} />
         <Typography sx={{ fontWeight: '500' }} variant='h2' color={'primary'}>
           Welcome to Campus Compass!
         </Typography>
       </Box>
 
-      <Box px={30} py={6} display={'flex'} flexDirection={'column'} alignItems={'center'} justifyContent={'center'} gap={'80px'}>
+      <Box px={20} py={6} display={'flex'} flexDirection={'column'} alignItems={'center'} justifyContent={'center'} gap={'80px'}>
         {/* <Box display={'flex'} justifyContent={'space-between'} gap={'100px'} width={'100%'}>
           <Box flexGrow={1} borderRadius={'20px'}>
             <Typography pb={2} variant='h5'>
@@ -142,6 +134,7 @@ const Login = () => {
           </Typography>
           <Box display={'flex'} justifyContent={'center'} gap={'50px'} width={'100%'}>
             <Button
+              startIcon={<BuildIcon sx={{ transform: 'scale(2) translate(-10px, 0px)' }} />}
               onClick={() => setUserRole('admin')}
               sx={{
                 border: userRoleError ? 'solid 1px red' : 'solid 0px red',
@@ -152,6 +145,7 @@ const Login = () => {
                 flexGrow: 1,
                 borderRadius: 3,
                 padding: 5,
+                paddingLeft: 8,
                 backgroundColor: userRole === 'admin' ? theme.palette.primary.main : 'white',
                 ':hover': { backgroundColor: userRole === 'admin' ? theme.palette.primary.main : theme.palette.secondary.dark }
               }}
@@ -159,6 +153,7 @@ const Login = () => {
               <Typography variant='h4'>Admin</Typography>
             </Button>
             <Button
+              startIcon={<StoreIcon sx={{ transform: 'scale(2) translate(-10px, 0px)' }} />}
               onClick={() => setUserRole('service')}
               sx={{
                 border: userRoleError ? 'solid 1px red' : 'solid 0px red',
@@ -169,6 +164,7 @@ const Login = () => {
                 flexGrow: 1,
                 borderRadius: 3,
                 padding: 5,
+                paddingLeft: 8,
                 backgroundColor: userRole === 'service' ? theme.palette.primary.main : 'white',
                 ':hover': { backgroundColor: userRole === 'service' ? theme.palette.primary.main : theme.palette.secondary.dark }
               }}
@@ -176,6 +172,7 @@ const Login = () => {
               <Typography variant='h4'>Service</Typography>
             </Button>
             <Button
+              startIcon={<SchoolIcon sx={{ transform: 'scale(2) translate(-10px, 0px)' }} />}
               onClick={() => setUserRole('student')}
               sx={{
                 border: userRoleError ? 'solid 1px red' : 'solid 0px red',
@@ -186,6 +183,7 @@ const Login = () => {
                 flexGrow: 1,
                 borderRadius: 3,
                 padding: 5,
+                paddingLeft: 8,
                 backgroundColor: userRole === 'student' ? theme.palette.primary.main : 'white',
                 ':hover': { backgroundColor: userRole === 'student' ? theme.palette.primary.main : theme.palette.secondary.dark }
               }}

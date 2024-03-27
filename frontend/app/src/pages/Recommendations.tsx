@@ -7,8 +7,7 @@ import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
 import Recommendation from '../components/Recommendation'
 import { RecommendationProps } from '../models'
-import logo from '../assets/logo.png'
-import { Link, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 
 function Recommendations() {

@@ -12,40 +12,42 @@ import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/500.css'
 import '@fontsource/roboto/700.css'
 
-const routesForPublic = [
-  {
-    path: '/',
-    name: 'Home',
-    element: <Home />
-  },
-  {
-    path: '/recommendations',
-    name: 'Recommendations',
-    element: <Recommendations />
-  }
-]
+const routesForPublic: any = []
 
 const routesForAuthenticatedOnly = [
   {
     path: '/',
     element: <ProtectedRoute />,
-    children: []
+    children: [
+      {
+        path: '/recommendations',
+        name: 'Recommendations',
+        element: <Recommendations />
+      },
+      {
+        path: '/',
+        name: 'Home',
+        element: <Home />
+      },
+      {
+        path: '/register',
+        name: 'Register Users',
+        element: <Register />
+      }
+    ]
   }
 ]
 
 const routesForNotAuthenticatedOnly = [
   {
     path: '/login',
+    name: 'Login',
     element: <Login />
-  },
-  {
-    path: '/register',
-    element: <Register />
   }
 ]
 
 export const routes = [...routesForPublic, ...routesForNotAuthenticatedOnly, ...routesForAuthenticatedOnly]
-const navbarRouteNames = ['Home', 'Recommendations']
+const navbarRouteNames = ['Home', 'Recommendations', 'Register Users']
 
 export function getCurrentRouteName(currentPath: string): string {
   return getCurrentRouteName_(routes, currentPath)
@@ -67,20 +69,25 @@ export function getOtherNavbarRoutes(currentPath: string): any {
 }
 
 export function getOtherNavbarRoutes_(routes: any, currentPath: string): any {
-  let navbarRoutes: any[] = []
+  const navbarRoutes: any[] = []
   for (const routeName of navbarRouteNames) {
     if (routeName === getCurrentRouteName_(routes, currentPath)) continue
     else {
-      for (const route of routes) {
-        if ('children' in route) {
-          navbarRoutes = navbarRoutes.concat(getOtherNavbarRoutes_(route['children'], currentPath))
-        } else if ('name' in route && route.name === routeName) {
-          navbarRoutes.push(route)
-        }
-      }
+      navbarRoutes.push(getOtherNavbarRoute(routes, routeName))
     }
   }
   return navbarRoutes
+}
+
+function getOtherNavbarRoute(routes: any, routeName: string): any {
+  for (const route of routes) {
+    if ('children' in route) {
+      return getOtherNavbarRoute(route['children'], routeName)
+    } else if ('name' in route && route.name === routeName) {
+      return route
+    }
+  }
+  return
 }
 
 const Routes = () => {

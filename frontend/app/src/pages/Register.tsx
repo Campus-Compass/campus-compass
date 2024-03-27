@@ -1,134 +1,167 @@
 import React from 'react'
 import { useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
-import { useAuth } from '../auth/authProvider'
-import axios from 'axios'
+import Box from '@mui/material/Box'
+import { IconButton, OutlinedInput, TextField, Typography } from '@mui/material'
+import FormControl from '@mui/material/FormControl'
+import { useTheme } from '@mui/material'
+import Button from '@mui/material/Button'
+import InputAdornment from '@mui/material/InputAdornment'
+import { Visibility, VisibilityOff } from '@mui/icons-material'
+import { post_request } from '../utils'
+import Navbar from '../components/Navbar'
+import SchoolIcon from '@mui/icons-material/School'
+import StoreIcon from '@mui/icons-material/Store'
 
 const Register = () => {
+  const theme = useTheme()
+
+  // Input values
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
-  const [usernameError, setUsernameError] = useState('')
-  const [passwordError, setPasswordError] = useState('')
-  const [confirmPasswordError, setConfirmPasswordError] = useState('')
+  const [userRole, setUserRole] = useState('')
+  const [usernameError, setUsernameError] = useState(false)
+  const [passwordError, setPasswordError] = useState(false)
+  const [userRoleError, setUserRoleError] = useState(false)
 
-  const navigate = useNavigate()
-  const auth = useAuth()
-  const { state } = useLocation()
+  const [showPassword, setShowPassword] = useState(false)
 
-  const validateLogin = () => {
-    setUsernameError('')
-    setPasswordError('')
-    setConfirmPasswordError('')
+  const handleClickShowPassword: any = () => setShowPassword((show) => !show)
+
+  const validateRegister = () => {
+    setUsernameError(false)
+    setPasswordError(false)
+    setUserRoleError(false)
+
+    let hasError = false
 
     if ('' === username) {
-      setUsernameError('Please enter your username')
-      return
+      setUsernameError(true)
+      hasError = true
     }
 
     if ('' === password) {
-      setPasswordError('Please enter a password')
-      return
+      setPasswordError(true)
+      hasError = true
     }
 
-    if ('' === confirmPassword) {
-      setConfirmPasswordError('Please confirm password')
-      return
+    if ('' === userRole) {
+      setUserRoleError(true)
+      hasError = true
     }
 
-    if (password.length < 7) {
-      setPasswordError('The password must be 8 characters or longer')
-      return
-    }
+    if (hasError) return
 
-    if (password !== confirmPassword) {
-      setConfirmPasswordError('The passwords must match')
-      return
-    }
-
-    register()
+    Register()
   }
 
-  const register = async () => {
-    let res: any = null
-    try {
-      res = await axios.post('/api/register', JSON.stringify({ username, password }))
-    } catch (e) {
-      window.alert('Could not register')
-      return
-    }
-
-    const resData = res.data
-    if (res.status === 200) {
-      auth?.setToken(resData)
-      navigate(state?.path || '/')
+  const Register = async () => {
+    const res: any = await post_request('/' + userRole + '/register', { user_id: username, password })
+    if (res !== undefined) {
+      alert('Registration is good.')
     } else {
-      window.alert('There was a problem with registering')
+      alert('Registration failed.')
     }
   }
 
   return (
-    <div className='relative mainContainer bg-sky-200/90 h-full p-10 rounded-lg'>
-      <span
-        onClick={() => {
-          navigate('/')
-        }}
-        className='hover:bg-black/0 hover:translate-x-[-0.25em] transition duration-300 cursor-pointer absolute top-5 left-5 text-lg text-black bg-black/20 rounded-lg p-2'
-      >
-        &#x25c0; Back
-      </span>
-      <div className='titleContainer text-4xl font-bold text-sky-500'>
-        <div>Sign in</div>
-      </div>
-      <br />
-      <div className='inputContainer'>
-        <input
-          value={username}
-          placeholder='Username'
-          onChange={(ev) => setUsername(ev.target.value)}
-          className='inputBox focus:border-sky-600 text-sky-500 bg-sky-200/80 border-2 border-sky-500'
-        />
-        <label className='errorLabel'>{usernameError}</label>
-      </div>
-      <br />
-      <div className={'inputContainer'}>
-        <input
-          value={password}
-          placeholder='Password'
-          onChange={(ev) => setPassword(ev.target.value)}
-          className='inputBox focus:border-sky-600 text-sky-500 border-2 bg-sky-200/80 border-sky-500'
-        />
-        <label className='errorLabel'>{passwordError}</label>
-      </div>
-      <br />
-      <div className={'inputContainer'}>
-        <input
-          value={confirmPassword}
-          placeholder='Confirm password'
-          onChange={(ev) => setConfirmPassword(ev.target.value)}
-          className='inputBox focus:border-sky-600 text-sky-500 border-2 bg-sky-200/80 border-sky-500'
-        />
-        <label className='errorLabel'>{confirmPasswordError}</label>
-      </div>
-      <br />
-      <div className=''>
-        <input
-          className='hover:bg-sky-700 bg-sky-500 px-20 py-4 text-xl rounded-lg cursor-pointer'
-          type='button'
-          onClick={validateLogin}
-          value={'Sign in'}
-        />
-      </div>
-      <div className='mt-2'>
-        <p className='text-body-2 text-black'>
-          Already have an account?
-          <a className='text-sky-500 cursor-pointer hover:text-sky-800' onClick={() => navigate('/login')}>
-            {' '}
-            Log in
-          </a>
-        </p>
-      </div>
-    </div>
+    <Box>
+      <Navbar />
+      <Box px={20} mt={5} py={6} display={'flex'} flexDirection={'column'} alignItems={'center'} justifyContent={'center'} gap={'80px'}>
+        <Box display={'flex'} flexDirection={'column'} justifyContent={'center'} width={'100%'}>
+          <Typography pb={2} variant='h5'>
+            Who to register?
+          </Typography>
+          <Box display={'flex'} justifyContent={'center'} gap={'50px'} width={'100%'}>
+            <Button
+              startIcon={<StoreIcon sx={{ transform: 'scale(2) translate(-10px, 0px)' }} />}
+              onClick={() => setUserRole('service')}
+              sx={{
+                border: userRoleError ? 'solid 1px red' : 'solid 0px red',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                color: userRole === 'service' ? theme.palette.secondary.main : theme.palette.primary.main,
+                flexGrow: 1,
+                borderRadius: 3,
+                padding: 5,
+                paddingLeft: 10,
+                backgroundColor: userRole === 'service' ? theme.palette.primary.main : 'white',
+                ':hover': { backgroundColor: userRole === 'service' ? theme.palette.primary.main : theme.palette.secondary.dark }
+              }}
+            >
+              <Typography variant='h4'>Service</Typography>
+            </Button>
+            <Button
+              startIcon={<SchoolIcon sx={{ transform: 'scale(2) translate(-10px, 0px)' }} />}
+              onClick={() => setUserRole('student')}
+              sx={{
+                border: userRoleError ? 'solid 1px red' : 'solid 0px red',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                color: userRole === 'student' ? theme.palette.secondary.main : theme.palette.primary.main,
+                flexGrow: 1,
+                borderRadius: 3,
+                padding: 5,
+                paddingLeft: 10,
+                backgroundColor: userRole === 'student' ? theme.palette.primary.main : 'white',
+                ':hover': { backgroundColor: userRole === 'student' ? theme.palette.primary.main : theme.palette.secondary.dark }
+              }}
+            >
+              <Typography variant='h4'>Student</Typography>
+            </Button>
+          </Box>
+        </Box>
+
+        <Box display={'flex'} flexDirection={'column'} justifyContent={'center'} width={'50%'}>
+          <Typography pb={2} variant='h5'>
+            {userRole === 'admin' ? 'Admin' : userRole === 'service' ? 'Service' : userRole === 'student' ? 'Student' : 'User'} ID
+          </Typography>
+          <TextField
+            error={usernameError}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setUsername(event.target.value)}
+            sx={{ borderRadius: '3', p: '2', backgroundColor: 'white' }}
+            value={username}
+            id='user-id'
+          ></TextField>
+          <br />
+          <br />
+          <Typography pb={2} variant='h5'>
+            Password
+          </Typography>
+          <FormControl error={passwordError} sx={{ borderRadius: '3', p: '2', backgroundColor: 'white' }} variant='outlined'>
+            <OutlinedInput
+              id='password'
+              type={showPassword ? 'text' : 'password'}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => setPassword(event.target.value)}
+              endAdornment={
+                <InputAdornment sx={{ paddingRight: '5px' }} position='end'>
+                  <IconButton onClick={handleClickShowPassword} edge='end'>
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
+          </FormControl>
+          <br />
+          <br />
+          <Button
+            sx={{
+              ':hover': { backgroundColor: '#1D6CA5' },
+              alignSelf: 'center',
+              padding: '10px',
+              width: '150px',
+              backgroundColor: '#2B94E0',
+              color: 'white',
+              fontSize: '18px'
+            }}
+            onClick={validateRegister}
+          >
+            Register
+          </Button>
+        </Box>
+      </Box>
+    </Box>
   )
 }
 

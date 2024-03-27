@@ -23,6 +23,7 @@ const AuthProvider = ({ children }: { children: any }) => {
       delete axios.defaults.headers.common['Authorization']
       localStorage.removeItem('token')
     }
+    console.log(token)
   }, [token])
 
   // Memoized value of the authentication context

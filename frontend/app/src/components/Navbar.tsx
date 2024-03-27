@@ -1,6 +1,6 @@
 // Navbar.tsx
 import React from 'react'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import '../css/Navbar.css' // Import the CSS file
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
@@ -13,7 +13,7 @@ import Button from '@mui/material/Button'
 import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
 import logo from '../assets/logo.png'
-import { getCurrentRouteName, getOtherNavbarRoutes, routes } from '../routes'
+import { getCurrentRouteName, getOtherNavbarRoutes } from '../routes'
 import { useTheme } from '@mui/material/styles'
 
 const settings = ['Profile', 'Logout']
@@ -36,8 +36,8 @@ const Navbar: React.FC = () => {
   }
 
   return (
-    <Box display={'flex'} p={2} gap={2}>
-      <img src={logo} width={50} />
+    <Box display={'flex'} mb={-2} p={2} gap={2}>
+      <img onClick={() => navigate('/')} style={{ cursor: 'pointer' }} src={logo} width={50} />
 
       <AppBar
         position='static'
