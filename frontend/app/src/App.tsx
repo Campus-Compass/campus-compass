@@ -2,6 +2,7 @@ import React from 'react'
 import './App.css'
 import Routes from './routes'
 import { ThemeProvider, createTheme, responsiveFontSizes } from '@mui/material/styles'
+import AuthProvider from './auth/authProvider'
 
 let theme = createTheme({
   palette: {
@@ -38,11 +39,11 @@ theme = responsiveFontSizes(theme)
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <div className='App'>
-        <header className='App-header'>
+      <AuthProvider>
+        <div className='App'>
           <Routes />
-        </header>
-      </div>
+        </div>
+      </AuthProvider>
     </ThemeProvider>
   )
 }

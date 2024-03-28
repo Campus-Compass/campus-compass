@@ -11,7 +11,10 @@ on:
     secrets:
       SONAR_TOKEN:
         required: true
-
+    outputs:
+      image_tag:
+        value: '${{ jobs.build-and-upload.outputs.image_tag }}'
+        
 env:
   NODE_VERSION: "20.8.0"
   REGISTRY: ghcr.io
@@ -75,7 +78,9 @@ jobs:
     permissions:
       contents: read
       packages: write
-
+    outputs:
+      image_tag: '${{ steps.image-tag.outputs.image_tag }}'
+      
     steps:
       - name: Checkout commit
         uses: actions/checkout@v4
