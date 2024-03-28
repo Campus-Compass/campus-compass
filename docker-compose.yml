@@ -25,6 +25,8 @@ services:
   frontend:
     image: ${FRONTEND_IMAGE}
     build: ./frontend
+    environment:
+      - REACT_APP_DOMAIN_NAME=${DOMAIN_NAME}
     networks:
       - user-facing
 

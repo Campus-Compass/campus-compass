@@ -90,8 +90,6 @@ const Routes = () => {
 
   function getCurrentRouteName_(routes: any, currentPath: string, recursivePath: string): string {
     for (const route of routes) {
-      console.log(recursivePath + route.path)
-      console.log(currentPath)
       if ('name' in route && recursivePath + route.path === currentPath) {
         return route.name
       } else if ('children' in route) {
