@@ -1,7 +1,9 @@
 import axios from 'axios'
 
 export async function send_request(url: string, method: string, data: any) {
-  return await axios({ method: method, url: url, data: data })
+  console.log(process.env)
+  console.log(process.env.REACT_APP_DOMAIN_NAME)
+  return await axios({ method: method, baseURL: process.env.REACT_APP_DOMAIN_NAME, url: url, data: data })
     .then(function (response) {
       console.log('Request response: ', response)
       return response.data
