@@ -15,21 +15,7 @@ function Recommendations() {
   const { state } = useLocation()
   const [recommendations, setRecommendations] = useState<RecommendationProps[]>()
 
-  const recs: RecommendationProps[] = [
-    {
-      question: 'asd',
-      answer: 'asd',
-      service: {
-        address: 'asd',
-        email: 'asd',
-        id: 1,
-        phone_number: 'asd',
-        service_name: 'asd',
-        uesr_id: 'asd',
-        website_url: 'asd'
-      }
-    }
-  ]
+  const recs: RecommendationProps[] = []
 
   function get_recommendations() {
     if (state === null || !('recommendations' in state) || state.recommendations === undefined) {
@@ -47,7 +33,6 @@ function Recommendations() {
   useEffect(() => {
     display_recommendations()
   }, [])
-  setRecommendations
   return (
     <React.Fragment>
       <Navbar />
