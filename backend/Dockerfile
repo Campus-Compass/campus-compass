@@ -22,3 +22,7 @@ COPY ./app /backend/app
 
 COPY ./alembic.ini /backend/
 COPY ./migrations /backend/migrations
+COPY ./build.sh /backend/build.sh
+
+CMD [ "./build.sh" ]
+#CMD [ "ls" ]

@@ -21,6 +21,7 @@ def init_db():
             )
             session.add(admin)
             session.commit()
+            user = session.exec(select(User)).first()
 
         service = session.exec(select(Service)).first()
         if not service:

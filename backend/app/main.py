@@ -9,7 +9,10 @@ app.include_router(admin.router, prefix="/admin")
 app.include_router(service.router, prefix="/service")
 app.include_router(survey.router, prefix="/survey")
 
-db.init_db()
+
+@app.on_event("startup")
+async def startup_event():
+    db.init_db()
 
 
 @app.get(

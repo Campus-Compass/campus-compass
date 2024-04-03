@@ -12,4 +12,5 @@ DB_NAME = os.environ.get("DB_NAME", "my_database")
 
 
 def get_db_url() -> str:
+    print(f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}")
     return f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
