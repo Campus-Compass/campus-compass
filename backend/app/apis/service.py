@@ -2,7 +2,8 @@ from typing import Dict
 
 from app.apis.base_api import base_user_api
 from app.db import get_session
-from app.models.user import User, UserRole
+from app.models.service import Service
+from app.models.user import UserRole
 from app.schemas.auth import BaseAuthDetails
 from app.schemas.profile import BaseServiceProfile
 from app.services.service import ServiceService
@@ -29,14 +30,16 @@ async def login(
     "/register",
     tags=["service"],
     status_code=status.HTTP_201_CREATED,
-    response_model=User,
+    response_model=Service,
 )
 async def register_service(
     user_info: BaseAuthDetails,
     session: Session = Depends(get_session),
     # user_id: str = Depends(auth_handler.auth_wrapper),
-) -> User:
-    return base_user_api.user_register(user_info, UserRole.SERVICE, session)
+) -> Service:
+    user = base_user_api.user_register(user_info, UserRole.SERVICE, session)
+    service = ServiceService(session).create_service(user.user_id, user.user_id)
+    return service
 
 
 @router.get(
