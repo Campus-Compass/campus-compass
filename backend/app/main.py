@@ -14,7 +14,7 @@ origins = [
     "http://test-frontend.campuscompass.online",
     "campuscompass.online",
     "http://campuscompass.online",
-    "http://frontend.campuscompass.online"
+    "http://frontend.campuscompass.online",
 ]
 
 app.add_middleware(
@@ -25,9 +25,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 @app.on_event("startup")
 async def startup_event():
     db.init_db()
+
 
 @app.get(
     "/",
